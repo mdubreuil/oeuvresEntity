@@ -83,17 +83,12 @@ public class SrvlOeuvres extends HttpServlet {
             vueReponse = "/home.jsp";
             login = request.getParameter("txtLogin");
             pwd = request.getParameter("txtPwd");
-            Proprietaire proprietaire = proprietaireF.connecter(login, pwd);
+            Proprietaire proprietaire = proprietaireF.getProprietaireByCredentials(login, pwd);
             if (proprietaire != null) {
-                if (pwd.equals(proprietaire.getPwd())) {
-                    vueReponse = "/home.jsp";
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("userId", proprietaire.getIdProprietaire());                
-                    request.setAttribute("proprietaireR", proprietaire);
-                } else {
-                    vueReponse = "/login.jsp";
-                    erreur = "Mot de passe incorrect !";
-                }
+                vueReponse = "/home.jsp";
+                HttpSession session = request.getSession(true);
+                session.setAttribute("userId", proprietaire.getIdProprietaire());                
+                request.setAttribute("proprietaireR", proprietaire);
             } else {
                 vueReponse = "/login.jsp";
                 erreur = "Login incorrect !";

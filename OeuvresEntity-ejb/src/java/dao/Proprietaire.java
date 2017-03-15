@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proprietaire.findByNomProprietaire", query = "SELECT p FROM Proprietaire p WHERE p.nomProprietaire = :nomProprietaire"),
     @NamedQuery(name = "Proprietaire.findByPrenomProprietaire", query = "SELECT p FROM Proprietaire p WHERE p.prenomProprietaire = :prenomProprietaire"),
     @NamedQuery(name = "Proprietaire.findByLogin", query = "SELECT p FROM Proprietaire p WHERE p.login = :login"),
-    @NamedQuery(name = "Proprietaire.findByPwd", query = "SELECT p FROM Proprietaire p WHERE p.pwd = :pwd")})
+    @NamedQuery(name = "Proprietaire.findByPwd", query = "SELECT p FROM Proprietaire p WHERE p.pwd = :pwd"),
+    @NamedQuery(name = "Proprietaire.findByCredentials", query = "SELECT p FROM Proprietaire p WHERE p.pwd = :pwd AND p.login = :login")})
 public class Proprietaire implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

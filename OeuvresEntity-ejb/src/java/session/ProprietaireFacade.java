@@ -53,35 +53,14 @@ public class ProprietaireFacade {
         }
     }
     
-    /**
-    * Lecture d'une occurrence d'oeuvre sur la clé primaire
-    * @param login
-    * @return
-    * @throws Exception
-    */
-    public Proprietaire Lire_Proprietaire_Login(String login) throws Exception {
+    public Proprietaire getProprietaireByCredentials(String login, String pwd) throws Exception { 
         try {
-            return em.find(Proprietaire.class, login);
-            
-//            Query query = em. createNamedQuery("Proprietaire.findByLogin");
-//            query.setParameter("login", login);
-//            return (Proprietaire)query.getSingleResult();
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-    
-    public Proprietaire connecter(String login, String pwd) throws Exception {
-        
-        try {
-//            Proprietaire proprietaire = Lire_Proprietaire_Login(login);
-//            if (pwd.equals(proprietaire.getPwd())) {
-//                return proprietaire;
-//            }
-            return Lire_Proprietaire_Login(login);
+            Query query = em. createNamedQuery("Proprietaire.findByCredentials");
+            query.setParameter("pwd", pwd);
+            query.setParameter("login", login);
+            return (Proprietaire)query.getSingleResult();
         } catch (Exception e) {
             return null;
-            //throw e;
         }
     }
 }
