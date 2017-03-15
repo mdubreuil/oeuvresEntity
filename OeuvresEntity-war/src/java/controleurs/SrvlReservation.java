@@ -15,6 +15,7 @@ import session.OeuvreFacade;
 import session.ReservationFacade;
 import session.ReservationPKFacade;
 import dao.Oeuvre;
+import dao.ReservationPK;
 import session.AdherentFacade;
 
 /**
@@ -147,21 +148,13 @@ public class SrvlReservation extends HttpServlet {
         //Oeuvre oeuvre;
         String idOeuvre, idAdherent, date, titre;
         date = titre = "";
-        int id_oeuvre;
+
         try {
             reservation = new Reservation();
-            //oeuvre = new Oeuvre();
-            idOeuvre = request.getParameter("id");
-            id_oeuvre = Integer.parseInt(idOeuvre);
-            /*oeuvre.lire_Id(id_oeuvre);
-            titre = oeuvre.getTitre();
-            reservation.setId_oeuvre(id_oeuvre);
-            date = request.getParameter("txtDate");
-            reservation.setDate_reservation(Utilitaire.StrToDate(date, "yyyy-MM-dd"));
-            idAdherent = request.getParameter("lstAdherents");
-            int id_adherent = Integer.parseInt(idAdherent);
-            reservation.setId_adherent(id_adherent);
-            reservation.ajouter();*/
+            int id_oeuvre = Integer.parseInt(request.getParameter("id"));
+            int id_adherent = Integer.parseInt(request.getParameter("lstAdherents"));
+            reservationF.Ajouter_Reservation(id_oeuvre, id_adherent, Utilitaire.StrToDate(request.getParameter("txtDate"), "yyyy-MM-dd"));
+
             return ("listeReservations.res");
         } catch (Exception e) {
             erreur = e.getMessage();

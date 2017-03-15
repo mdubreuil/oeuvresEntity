@@ -55,10 +55,12 @@ public class Reservation implements Serializable
     private Oeuvre oeuvre;
 
     public Reservation() {
+        this.statut = "Attente";
     }
 
     public Reservation(ReservationPK reservationPK) {
         this.reservationPK = reservationPK;
+        this.statut = "Attente";
     }
 
     public Reservation(ReservationPK reservationPK, String statut) {

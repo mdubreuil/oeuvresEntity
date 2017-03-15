@@ -24,6 +24,20 @@ public class AdherentFacade
     }
     
     /**
+    * Lecture d'une occurrence d'adherent sur la clé primaire
+    * @param id_adherent
+    * @return
+    * @throws Exception
+    */
+    public Adherent Lire_Adherent_Id(int id_adherent) throws Exception {
+        try {
+            return em.find(Adherent.class, id_adherent);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    /**
     * Retourne une liste d'objets Oeuvre
     * @return
     * @throws Exception
