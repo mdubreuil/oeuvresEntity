@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Epulapp/Documents/NetBeansProjects/OeuvresEntity/OeuvresEntity-war/web/reservation.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/NetBeansProjects/OeuvresEntity/OeuvresEntity-war/web/oeuvre.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/NetBeansProjects/OeuvresEntity/OeuvresEntity-war/web/listereservations.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/NetBeansProjects/OeuvresEntity/OeuvresEntity-war/web/catalogue.jsp</file>
+            <file>file:/C:/Users/Epulapp/Desktop/oeuvresEntity/OeuvresEntity-war/src/java/controleurs/SrvlReservation.java</file>
+            <file>file:/C:/Users/Epulapp/Desktop/oeuvresEntity/OeuvresEntity-war/web/listereservations.jsp</file>
+            <file>file:/C:/Users/Epulapp/Desktop/oeuvresEntity/OeuvresEntity-war/src/java/controleurs/SrvlOeuvres.java</file>
         </group>
     </open-files>
 </project-private>

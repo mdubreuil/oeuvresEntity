@@ -15,6 +15,8 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -48,17 +50,26 @@ public class ReservationFacade {
         }
     }
     
+    public Reservation getReservationByDateAndOeuvre(Date dateReservation,int id_oeuvre) throws Exception {
+        try {
+            Query query = em. createNamedQuery("Reservation.findByCouple");
+            query.setParameter("dateReservation", dateReservation, TemporalType.DATE);
+            query.setParameter("idOeuvre", id_oeuvre);
+            return (Reservation)query.getSingleResult();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void Ajouter_Reservation(int id_oeuvre, int id_adherent, Date dateReservation) throws Exception {
         Reservation reservationE = new Reservation();
         Oeuvre oeuvreE = null;
         Adherent adherentE = null;
-        try {
-            
+        try {           
             oeuvreE = oeuvreF.Lire_Oeuvre_Id(id_oeuvre);
             adherentE = adherentF.Lire_Adherent_Id(id_adherent);
             ReservationPK reservationPk = new ReservationPK(dateReservation, oeuvreE.getIdOeuvre());
-
             reservationE.setReservationPK(reservationPk);
             reservationE.setOeuvre(oeuvreE);
             reservationE.setAdherent(adherentE);
@@ -70,21 +81,23 @@ public class ReservationFacade {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void Modifier_Reservation(int id_oeuvre, int id_adherent, Date dateReservation) throws Exception {
-        Reservation reservationE = new Reservation();
-        Oeuvre oeuvreE = null;
-        Adherent adherentE = null;
+    public void Modifier_Reservation(int id_oeuvre, Date dateReservation) throws Exception {
+        Reservation reservationE = null;
         try {
-            
-            oeuvreE = oeuvreF.Lire_Oeuvre_Id(id_oeuvre);
-            adherentE = adherentF.Lire_Adherent_Id(id_adherent);
-            ReservationPK reservationPk = new ReservationPK(dateReservation, oeuvreE.getIdOeuvre());
-
-            reservationE.setReservationPK(reservationPk);
-            reservationE.setOeuvre(oeuvreE);
-            reservationE.setAdherent(adherentE);
-
+            reservationE = getReservationByDateAndOeuvre(dateReservation,id_oeuvre);
+            reservationE.setStatut("Confirmée");
             em.merge(reservationE);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void Supprimer_Reservation_Id(int id_oeuvre, Date dateReservation) throws Exception {
+        Reservation reservationE = null;
+        try {
+            reservationE = getReservationByDateAndOeuvre(dateReservation,id_oeuvre);
+            em.remove(reservationE);
         } catch (Exception e) {
             throw e;
         }

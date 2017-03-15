@@ -22,8 +22,8 @@
                     <td>${reservation.statut}</td>
                     <td>${reservation.adherent.prenomAdherent}</td>
                     <td>${reservation.adherent.nomAdherent}</td>
-                    <td><a class="btn btn-primary" href="confirmerReservation.res?id=${reservation.oeuvre.idOeuvre}&dateres='<fmt:formatDate value="${reservation.reservationPK.dateReservation}" type="date" pattern="yyyy-MM-dd"/>'">Confirmer</a></td>
-                    <td><a class="btn btn-primary" href="supprimerReservation.res?id=${reservation.oeuvre.idOeuvre}&dateres='<fmt:formatDate value="${reservation.reservationPK.dateReservation}" type="date" pattern="yyyy-MM-dd"/>'">Supprimer</a></td>                    
+                    <td><a class="btn btn-primary" href="confirmerReservation.res?id=${reservation.reservationPK.idOeuvre}&dateres='<fmt:formatDate value="${reservation.reservationPK.dateReservation}" type="date" pattern="yyyy-MM-dd"/>'">Confirmer</a></td>
+                    <td><a class="btn btn-primary" href="supprimerReservation.res?id=${reservation.reservationPK.idOeuvre}&dateres='<fmt:formatDate value="${reservation.reservationPK.dateReservation}" type="date" pattern="yyyy-MM-dd"/>'">Supprimer</a></td>                    
                 </tr>
             </c:forEach>                    
         </tbody>

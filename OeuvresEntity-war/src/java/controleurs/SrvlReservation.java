@@ -15,7 +15,6 @@ import session.OeuvreFacade;
 import session.ReservationFacade;
 import session.ReservationPKFacade;
 import dao.Oeuvre;
-import dao.ReservationPK;
 import session.AdherentFacade;
 
 /**
@@ -84,18 +83,15 @@ public class SrvlReservation extends HttpServlet {
      * @throws Exception
      */
     private String confirmerReservation(HttpServletRequest request) throws Exception {
-        Reservation reservation;
-        String id, date;
+        Reservation reservationE;
         int id_oeuvre;
+        String id,date;
         try {
-            reservation = new Reservation();
             id = request.getParameter("id");
             id_oeuvre = Integer.parseInt(id);
             date = request.getParameter("dateres").replace("'", "");
-            //reservation.setId_oeuvre(id_oeuvre);
             java.util.Date dateRes = Utilitaire.StrToDate(date, "yyyy-MM-dd");
-            //reservation.setDate_reservation(dateRes);
-            //reservation.modifier();
+            reservationF.Modifier_Reservation(id_oeuvre,dateRes);
             return ("listeReservations.res");
         } catch (Exception e) {
             throw e;
@@ -103,19 +99,17 @@ public class SrvlReservation extends HttpServlet {
     }
 
     private String supprimerReservation(HttpServletRequest request) throws Exception {
-        String id, date;
+        Reservation reservationE;
         int id_oeuvre;
+        String id,date;
         try {
-            Reservation reservation = new Reservation();
             id = request.getParameter("id");
             id_oeuvre = Integer.parseInt(id);
             date = request.getParameter("dateres").replace("'", "");
-            //reservation.setId_oeuvre(id_oeuvre);
             java.util.Date dateRes = Utilitaire.StrToDate(date, "yyyy-MM-dd");
-            //reservation.setDate_reservation(dateRes);
-            //reservation.supprimer();
+            reservationF.Supprimer_Reservation_Id(id_oeuvre,dateRes);
             return ("listeReservations.res");
-        } catch (Exception e) {         
+        } catch (Exception e) {
             throw e;
         }
     }     
@@ -144,13 +138,9 @@ public class SrvlReservation extends HttpServlet {
      * @throws Exception
      */
     private String enregistrerReservation(HttpServletRequest request) throws Exception {
-        Reservation reservation;
-        //Oeuvre oeuvre;
-        String idOeuvre, idAdherent, date, titre;
+        String date, titre;
         date = titre = "";
-
         try {
-            reservation = new Reservation();
             int id_oeuvre = Integer.parseInt(request.getParameter("id"));
             int id_adherent = Integer.parseInt(request.getParameter("lstAdherents"));
             reservationF.Ajouter_Reservation(id_oeuvre, id_adherent, Utilitaire.StrToDate(request.getParameter("txtDate"), "yyyy-MM-dd"));
@@ -177,7 +167,6 @@ public class SrvlReservation extends HttpServlet {
             int id_oeuvre = Integer.parseInt(request.getParameter("id"));
             Oeuvre oeuvreE = oeuvreF.Lire_Oeuvre_Id(id_oeuvre);
             List<Adherent> lAdherentsE = adherentF.Liste_Adherents();
-//            request.setAttribute("titre", "Consulter/Modifier une oeuvre");
             request.setAttribute("oeuvreR", oeuvreE);
             request.setAttribute("lstAdherentsR", lAdherentsE);
             return ("/reservation.jsp");
