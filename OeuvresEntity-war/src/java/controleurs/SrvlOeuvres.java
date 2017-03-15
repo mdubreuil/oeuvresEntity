@@ -183,7 +183,7 @@ public class SrvlOeuvres extends HttpServlet {
             List <Proprietaire> lProprietairesE = proprietaireF.Liste_Proprietaires();
             request.setAttribute("lstProprietairesR", lProprietairesE);
             request.setAttribute("titre", "Détail d'une oeuvre");
-            return ("/oeuvre.jsp");
+            return ("/detail.jsp");
         } catch (Exception e) {
             throw e;
         }
