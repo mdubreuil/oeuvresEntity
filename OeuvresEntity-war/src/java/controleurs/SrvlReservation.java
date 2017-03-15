@@ -1,5 +1,6 @@
 package controleurs;
 
+import dao.Adherent;
 import dao.Reservation;
 import java.io.IOException;
 import java.util.List;
@@ -10,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import outils.*;
+import session.OeuvreFacade;
 import session.ReservationFacade;
 import session.ReservationPKFacade;
+import dao.Oeuvre;
+import session.AdherentFacade;
 
 /**
  *
@@ -21,6 +25,19 @@ import session.ReservationPKFacade;
 
 public class SrvlReservation extends HttpServlet {
    
+    @EJB
+    private ReservationFacade reservationF;
+    
+    @EJB
+    private OeuvreFacade oeuvreF;
+    
+    @EJB
+    private AdherentFacade adherentF;
+
+    @EJB
+    private ReservationPKFacade reservationPkF;
+    private String erreur = "";
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -28,12 +45,6 @@ public class SrvlReservation extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB
-    private ReservationFacade reservationF;
-    @EJB
-    private ReservationPKFacade reservationPkF;
-    private String erreur;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String demande;
@@ -170,18 +181,16 @@ public class SrvlReservation extends HttpServlet {
      */
     private String reserverOeuvre(HttpServletRequest request) throws Exception {
         try {
-            //Adherent adherent = new Adherent();
-            String idOeuvre = request.getParameter("id");
-            int id_oeuvre = Integer.parseInt(idOeuvre);
-            /*Oeuvre oeuvre = new Oeuvre();
-            oeuvre.lire_Id(id_oeuvre);
-            request.setAttribute("oeuvreR", oeuvre);
-            request.setAttribute("lstAdherentsR", adherent.liste());
-            return ("/reservation.jsp");*/
+            int id_oeuvre = Integer.parseInt(request.getParameter("id"));
+            Oeuvre oeuvreE = oeuvreF.Lire_Oeuvre_Id(id_oeuvre);
+            List<Adherent> lAdherentsE = adherentF.Liste_Adherents();
+//            request.setAttribute("titre", "Consulter/Modifier une oeuvre");
+            request.setAttribute("oeuvreR", oeuvreE);
+            request.setAttribute("lstAdherentsR", lAdherentsE);
+            return ("/reservation.jsp");
         } catch (Exception e) {
             throw e;
         }
-        return "";
     }
 
     /**

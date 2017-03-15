@@ -33,18 +33,23 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservation.findByDateReservation", query = "SELECT r FROM Reservation r WHERE r.reservationPK.dateReservation = :dateReservation"),
     @NamedQuery(name = "Reservation.findByIdOeuvre", query = "SELECT r FROM Reservation r WHERE r.reservationPK.idOeuvre = :idOeuvre"),
     @NamedQuery(name = "Reservation.findByStatut", query = "SELECT r FROM Reservation r WHERE r.statut = :statut")})
-public class Reservation implements Serializable {
+public class Reservation implements Serializable
+{
     private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     protected ReservationPK reservationPK;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "statut")
     private String statut;
+
     @JoinColumn(name = "id_adherent", referencedColumnName = "id_adherent")
     @ManyToOne(optional = false)
     private Adherent adherent;
+
     @JoinColumn(name = "id_oeuvre", referencedColumnName = "id_oeuvre", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Oeuvre oeuvre;

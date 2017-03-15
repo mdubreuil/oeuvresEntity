@@ -15,12 +15,14 @@ import javax.validation.constraints.NotNull;
  * 
  */
 @Embeddable
-public class ReservationPK implements Serializable {
+public class ReservationPK implements Serializable
+{
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_reservation")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReservation;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_oeuvre")
