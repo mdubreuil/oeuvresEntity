@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import session.OeuvreFacade;
 import session.ProprietaireFacade;
 
@@ -39,7 +40,13 @@ public class SrvlOeuvres extends HttpServlet {
         erreur = "";
         try {
             demande = getDemande(request);
-            if (demande.equalsIgnoreCase("ajouter.oe")) {
+            if (demande.equalsIgnoreCase("login.oe")) {
+                vueReponse = login(request);
+            } else  if (demande.equalsIgnoreCase("connecter.oe")) {
+                vueReponse = connecter(request);
+            } else  if (demande.equalsIgnoreCase("deconnecter.oe")) {
+                vueReponse = deconnecter(request);
+            } else if (demande.equalsIgnoreCase("ajouter.oe")) {
                 vueReponse = creerOeuvre(request);
             } else if (demande.equalsIgnoreCase("enregistrer.oe")) {
                 vueReponse = enregistrerOeuvre(request);
@@ -61,6 +68,63 @@ public class SrvlOeuvres extends HttpServlet {
             if (vueReponse.contains(".oe"))
                 dsp = request.getRequestDispatcher(vueReponse);
             dsp.forward(request, response);
+        }
+    }
+    
+    /**
+     * Vérifie que l'utilisateur a saisi le bon login et mot de passe
+     * @param request
+     * @return String page de redirection
+     * @throws Exception
+     */
+    private String connecter(HttpServletRequest request) throws Exception {
+        String login, pwd, vueReponse;
+        try {
+            vueReponse = "/home.jsp";
+            login = request.getParameter("txtLogin");
+            pwd = request.getParameter("txtPwd");
+            Proprietaire proprietaire = proprietaireF.connecter(login, pwd);
+            if (proprietaire != null) {
+                if (pwd.equals(proprietaire.getPwd())) {
+                    vueReponse = "/home.jsp";
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("userId", proprietaire.getIdProprietaire());                
+                    request.setAttribute("proprietaireR", proprietaire);
+                } else {
+                    vueReponse = "/login.jsp";
+                    erreur = "Mot de passe incorrect !";
+                }
+            } else {
+                vueReponse = "/login.jsp";
+                erreur = "Login incorrect !";
+            }            
+            return (vueReponse);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    private String deconnecter(HttpServletRequest request) throws Exception {
+        try {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("userId", null);
+            return ("/home.jsp");
+        } catch (Exception e) {
+            throw e;
+        }
+    } 
+    
+    /**
+     * Afficher la page de login
+     * @param request
+     * @return
+     * @throws Exception 
+     */
+    private String login(HttpServletRequest request) throws Exception {
+        try {
+            return ("/login.jsp");
+        } catch (Exception e) {
+            throw e;
         }
     }
 
@@ -165,7 +229,7 @@ public class SrvlOeuvres extends HttpServlet {
      */
     private String listerOeuvres(HttpServletRequest request) throws Exception {
         List<Oeuvre> oeuvreE = null;
-        try {            
+        try {
             oeuvreE = oeuvreF.Liste_Oeuvres();
             request.setAttribute("lstOeuvresR", oeuvreE);
             request.setAttribute("titre","Liste des oeuvres");

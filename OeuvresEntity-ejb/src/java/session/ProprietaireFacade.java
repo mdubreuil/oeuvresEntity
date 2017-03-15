@@ -9,6 +9,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -52,4 +53,35 @@ public class ProprietaireFacade {
         }
     }
     
+    /**
+    * Lecture d'une occurrence d'oeuvre sur la clé primaire
+    * @param login
+    * @return
+    * @throws Exception
+    */
+    public Proprietaire Lire_Proprietaire_Login(String login) throws Exception {
+        try {
+            return em.find(Proprietaire.class, login);
+            
+//            Query query = em. createNamedQuery("Proprietaire.findByLogin");
+//            query.setParameter("login", login);
+//            return (Proprietaire)query.getSingleResult();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Proprietaire connecter(String login, String pwd) throws Exception {
+        
+        try {
+//            Proprietaire proprietaire = Lire_Proprietaire_Login(login);
+//            if (pwd.equals(proprietaire.getPwd())) {
+//                return proprietaire;
+//            }
+            return Lire_Proprietaire_Login(login);
+        } catch (Exception e) {
+            return null;
+            //throw e;
+        }
+    }
 }
