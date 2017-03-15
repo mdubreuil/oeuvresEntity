@@ -136,15 +136,20 @@ public class SrvlOeuvres extends HttpServlet {
      * @throws Exception
      */
     private String enregistrerOeuvre(HttpServletRequest request) throws Exception {
-        String vueReponse, titre;
+        String vueReponse, titre,id,idProprietaire;
         int id_oeuvre, id_proprietaire;
-        double prix;
-        
+        double prix;        
         try {
-            id_oeuvre = Integer.parseInt(request.getParameter("id"));
+            id = request.getParameter("id");
+            if(id.isEmpty()) {
+                id_oeuvre=0;
+            } else {
+                id_oeuvre = Integer.parseInt(id);
+            }
             titre = request.getParameter("txtTitre");
-            prix = Double.parseDouble(request.getParameter("txtTitre"));
-            id_proprietaire = Integer.parseInt(request.getParameter("lProprietaires"));
+            prix = Double.parseDouble(request.getParameter("txtPrix"));
+            idProprietaire = request.getParameter("lProprietaires");
+            id_proprietaire = Integer.parseInt(idProprietaire);
             if (id_oeuvre > 0) {
                 oeuvreF.Modifier_Oeuvre(id_oeuvre,titre,prix,id_proprietaire);
             } else {
@@ -166,7 +171,6 @@ public class SrvlOeuvres extends HttpServlet {
      * @throws Exception
      */
     private String creerOeuvre(HttpServletRequest request) throws Exception {
-        // Constructeur mauvais ?
         Oeuvre oeuvreE = new Oeuvre();
         try {
             List <Proprietaire> lProprietairesE = proprietaireF.Liste_Proprietaires();
@@ -244,8 +248,6 @@ public class SrvlOeuvres extends HttpServlet {
             int id_oeuvre = Integer.parseInt(request.getParameter("id"));
             Oeuvre oeuvreE = oeuvreF.Lire_Oeuvre_Id(id_oeuvre);
             request.setAttribute("oeuvreR", oeuvreE);
-            List <Proprietaire> lProprietairesE = proprietaireF.Liste_Proprietaires();
-            request.setAttribute("lstProprietairesR", lProprietairesE);
             request.setAttribute("titre", "Détail d'une oeuvre");
             return ("/detail.jsp");
         } catch (Exception e) {

@@ -17,8 +17,8 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Proprietaire : </label>
             <div class="col-sm-6 col-md-3">
-                <select class='form-control' name='lstProprietaires' required>
-                    <c:forEach var="proprietaireE" items="${lProprietairesR}">
+                <select class='form-control' name='lProprietaires' required>
+                    <c:forEach var="proprietaireE" items="${lstProprietairesR}">
                         <option value="${proprietaireE.idProprietaire}"<c:if test="${proprietaireE.idProprietaire == oeuvreR.proprietaire.idProprietaire}"> SELECTED</c:if> >${proprietaireE.prenomProprietaire} ${proprietaireE.nomProprietaire}</option>
                     </c:forEach>
                 </select>

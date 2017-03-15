@@ -9,6 +9,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +26,7 @@ import javax.persistence.TemporalType;
 
 @Stateless
 @LocalBean
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class OeuvreFacade {
     @PersistenceContext(unitName = "OeuvresEntity-ejbPU")
     private EntityManager em;
@@ -71,12 +76,12 @@ public class OeuvreFacade {
         }
     }
     
-
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void Ajouter_Oeuvre(int id_oeuvre, String titre, double prix, int id_proprietaire)throws Exception {
         Oeuvre oeuvreE = null;
         Proprietaire proprietaireE = null;
         try {
-            oeuvreE = new Oeuvre(id_oeuvre);
+            oeuvreE = new Oeuvre();
             proprietaireE = proprietaireF.Lire_Proprietaire_Id(id_proprietaire);
             oeuvreE.setPrix(BigDecimal.valueOf(prix));
             oeuvreE.setTitre(titre);
@@ -87,7 +92,7 @@ public class OeuvreFacade {
         }
     }
     
-
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void Modifier_Oeuvre(int id_oeuvre, String titre, double prix, int id_proprietaire)throws Exception {
         Oeuvre oeuvreE = null;
         Proprietaire proprietaireE = null;
@@ -102,7 +107,8 @@ public class OeuvreFacade {
             throw e;
         }
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void Supprimer_Oeuvre_Id(int id_oeuvre) throws Exception {
         Oeuvre oeuvreE;
         try {
