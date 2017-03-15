@@ -23,7 +23,7 @@ public class SrvlOeuvres extends HttpServlet {
     private OeuvreFacade oeuvreF;
     @EJB
     private ProprietaireFacade proprietaireF;
-    private String erreur;
+    private String erreur = "";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -164,8 +164,9 @@ public class SrvlOeuvres extends HttpServlet {
      * @throws Exception
      */
     private String listerOeuvres(HttpServletRequest request) throws Exception {
-        try {
-            List<Oeuvre> oeuvreE = oeuvreF.Liste_Oeuvres();
+        List<Oeuvre> oeuvreE = null;
+        try {            
+            oeuvreE = oeuvreF.Liste_Oeuvres();
             request.setAttribute("lstOeuvresR", oeuvreE);
             request.setAttribute("titre","Liste des oeuvres");
             return ("/catalogue.jsp");
