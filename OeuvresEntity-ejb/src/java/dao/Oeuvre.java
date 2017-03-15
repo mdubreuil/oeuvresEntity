@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.io.Serializable;
@@ -29,7 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Epulapp
+ * @author Mélanie DUBREUIL et Ophélie EOUZAN
+ * 
  */
 @Entity
 @Table(name = "oeuvre")
@@ -53,7 +49,6 @@ public class Oeuvre implements Serializable {
     @Size(max = 250)
     @Column(name = "titre")
     private String titre;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "prix")
     private BigDecimal prix;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "oeuvre")
@@ -119,7 +114,6 @@ public class Oeuvre implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Oeuvre)) {
             return false;
         }

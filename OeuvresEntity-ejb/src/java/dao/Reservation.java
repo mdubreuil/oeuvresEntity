@@ -22,7 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Epulapp
+ * @author Mélanie DUBREUIL et Ophélie EOUZAN
+ * 
  */
 @Entity
 @Table(name = "reservation")

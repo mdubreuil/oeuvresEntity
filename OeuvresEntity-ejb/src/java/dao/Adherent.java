@@ -18,7 +18,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Epulapp
+ * @author Mélanie DUBREUIL et Ophélie EOUZAN
+ * 
  */
 @Entity
 @Table(name = "adherent")

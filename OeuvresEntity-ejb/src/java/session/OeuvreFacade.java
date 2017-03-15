@@ -20,8 +20,10 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Epulapp
+ * @author Mélanie DUBREUIL et Ophélie EOUZAN
+ * 
  */
+
 @Stateless
 @LocalBean
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -62,6 +64,7 @@ public class OeuvreFacade {
         }
     }
     
+    
     public Reservation Lire_Reservation_Id(Date dateReservation, int id_oeuvre) throws Exception {
         try {
             Query query = em. createNamedQuery("Reservation.findByDateReservationIdOeuvre");
@@ -73,14 +76,13 @@ public class OeuvreFacade {
         }
     }
     
-    // TODO : méthode lire propriétaire
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void Ajouter_Oeuvre(int id_oeuvre, String titre, double prix, int id_proprietaire)throws Exception {
         Oeuvre oeuvreE = null;
         Proprietaire proprietaireE = null;
         try {
             oeuvreE = new Oeuvre(id_oeuvre);
-            //proprietaireE = proprietaireE.lire(id_proprietaire);
+            proprietaireE = proprietaireF.Lire_Proprietaire_Id(id_proprietaire);
             oeuvreE.setPrix(BigDecimal.valueOf(prix));
             oeuvreE.setTitre(titre);
             oeuvreE.setProprietaire(proprietaireE);
@@ -96,7 +98,7 @@ public class OeuvreFacade {
         Proprietaire proprietaireE = null;
         try {
             oeuvreE = Lire_Oeuvre_Id(id_oeuvre);
-            //proprietaireE = proprietaireE.lire(id_proprietaire);
+            proprietaireE = proprietaireF.Lire_Proprietaire_Id(id_proprietaire);
             oeuvreE.setPrix(BigDecimal.valueOf(prix));
             oeuvreE.setTitre(titre);
             oeuvreE.setProprietaire(proprietaireE);
