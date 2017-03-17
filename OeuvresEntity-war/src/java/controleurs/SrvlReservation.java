@@ -15,6 +15,7 @@ import session.OeuvreFacade;
 import session.ReservationFacade;
 import session.ReservationPKFacade;
 import dao.Oeuvre;
+import static outils.Utilitaire.getExceptionCause;
 import session.AdherentFacade;
 
 /**
@@ -64,7 +65,7 @@ public class SrvlReservation extends HttpServlet {
                 vueReponse = supprimerReservation(request);
             }
         } catch (Exception e) {
-            erreur = e.getMessage();
+            erreur = getExceptionCause(e);
         } finally {
             request.setAttribute("erreurR", erreur);
             request.setAttribute("pageR", vueReponse); 

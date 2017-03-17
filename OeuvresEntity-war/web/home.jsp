@@ -1,1 +1,1 @@
-        <h1 align="center">PolyLibrary</h1>
+        <h1 align="center">Bienvenue dans la bibliothèque municipale de Saint-Chamond</h1>

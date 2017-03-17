@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static outils.Utilitaire.getExceptionCause;
 import session.OeuvreFacade;
 import session.ProprietaireFacade;
 
@@ -60,7 +61,7 @@ public class SrvlOeuvres extends HttpServlet {
                 vueReponse = detailOeuvre(request);
             } 
         } catch (Exception e) {
-            erreur = e.getMessage();
+            erreur = getExceptionCause(e);
         } finally {
             request.setAttribute("erreurR", erreur);
             request.setAttribute("pageR", vueReponse);            

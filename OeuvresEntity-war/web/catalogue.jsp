@@ -2,13 +2,14 @@
 
 <div  class="col-md-11 col-md-offset-1">
     <h1 align='center'>Catalogue des oeuvres</h1>
+    <br />
     <table class="table table-bordered table-striped">
         <thead>
-            <tr>
+            <tr align='center'>
                 <td>Titre</td>
                 <td>Nom propriétaire</td>
                 <td>Prénom propriétaire</td>
-                <td>Détail</td>
+                <td >Détail</td>
                 <td>Réserver</td>
                 <td>Modifier</td>
                 <td>Supprimer</td>                
@@ -16,7 +17,7 @@
         </thead>
         <tbody>
             <c:forEach var="oeuvre" items="${lstOeuvresR}">
-                <tr>
+                <tr align='center'>
                     <td>${oeuvre.titre}</td>
                     <td>${oeuvre.proprietaire.nomProprietaire}</td>
                     <td>${oeuvre.proprietaire.prenomProprietaire}</td>

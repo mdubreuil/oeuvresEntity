@@ -1,7 +1,7 @@
-
 <h1 align='center'>Authentification</h1>
+<br />
 <div class="well">
-    <form class="form-signin form-horizontal" role="form" action="connecter.oe" method="post">
+    <form class="form-signin form-horizontal col-md-offset-3" role="form" action="connecter.oe" method="post">
         <div class="form-group">
             <label class="col-md-3 control-label">Login : </label>
             <div class="col-md-3">
